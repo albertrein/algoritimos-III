@@ -2,9 +2,9 @@
 #define MAX 10000
 
 
-int faz_tudo(int contro, int max){
+int faz_tudo(int contro, int max){	//<<<===== ERRO: NUNCA USAR UMA FUNÇÃO FAZ TUDO 
 	int i, j, primo ,b, soma=0;
-	int vet[max];
+	int vet[max];						//<<<==== ERRO: NÃO PODE DEFINIR O TAMANHO DO VETOR COM UMA VARIAVEL 
 	printf("#Digite %i números inteiros positivos ou negativos:\n",contro);
 	for(i=0;i<contro;i++){
 		scanf("%i",&vet[i]);
