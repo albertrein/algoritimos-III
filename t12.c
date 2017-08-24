@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define TAM 10000
 
-int ordenador(int val[], int val2[], int contro){
+int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e transforma para positivo e calcula o valor sequencial
 	int i;
 
 	for(i=0;i<contro;i++){
@@ -11,17 +11,27 @@ int ordenador(int val[], int val2[], int contro){
 		}
 		printf("==>> %i\n", val2[i]);
 		val2[i] = ((1+val2[i])*val2[i])/2;
-
 		
 	}
 
+}
 
+int ordenador(int vetor[], int contro){
+	int i, j, aux;
 
-
+	for( i=0; i<5; i++ ){
+	    for( j=i+1; j<10; j++ ){
+	        if( vetor[i] > vetor[j] ){
+	            aux = vetor[i];
+	            vetor[i] = vetor[j];
+	            vetor[j] = aux;
+	        }
+		}
+	}
 }
 
 int main(){
-	int x, y, vet[TAM], vett[TAM], i;
+	int x, y, vet[TAM], vet2[TAM], i;
 
 	printf("# DIGITE QUANTOS VALORES VOCE QUER REGISTRAR != (> 10000 & ==0)\n");
 	scanf("%i",&x);
@@ -34,7 +44,6 @@ int main(){
 
 		for(i=0;i<x; i++){ // FOr para
 			scanf("%i",&vet[i]);
-			//y=0;
 			for(y=0;y<i;y++){
 				if(y==i){
 					continue;
@@ -50,13 +59,23 @@ int main(){
 
 		}
 
-		ordenador(vet,vett,x);
+		ordenador(vet,x);
+		//somador(vet,vet2,x);
 
 		printf("VOCE DIGITOU TODAS AS %i \n",x);
 		for(i=0;i<x;i++){
-			printf(">>> %i\n",vett[i]);
+			printf(">>> %i\n",vet[i]);
 		}
 
 	
 	}//else principal
 }
+
+/*
+vet[] == valores recebidos
+vet2[] == valores ordenados
+vet3[] == sequenciais
+
+
+
+*/
