@@ -9,29 +9,30 @@ int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e tran
 		if(val2[i]<0){
 			val2[i] *= -1;
 		}
-		printf("==>> %i\n", val2[i]);
+		
 		val2[i] = ((1+val2[i])*val2[i])/2;
 		
 	}
 
 }
 
-int ordenador(int vetor[], int contro){
+int ordenador(int vetor[], int vetor2[], int contro){ //O
 	int i, j, aux;
 
-	for( i=0; i<5; i++ ){
-	    for( j=i+1; j<10; j++ ){
-	        if( vetor[i] > vetor[j] ){
-	            aux = vetor[i];
-	            vetor[i] = vetor[j];
-	            vetor[j] = aux;
+	for( i=0; i<contro; i++ ){
+	    for( j=i+1; j<contro; j++ ){
+	        if( vetor2[i] > vetor2[j] ){
+	            aux = vetor2[i];
+	            vetor2[i] = vetor2[j];
+	            vetor2[j] = aux;
 	        }
 		}
+		//printf("==>> %i\n", vetor[i]);
 	}
 }
 
 int main(){
-	int x, y, vet[TAM], vet2[TAM], i;
+	int x, y, vet[TAM], vet2[TAM], vet3[TAM], i;
 
 	printf("# DIGITE QUANTOS VALORES VOCE QUER REGISTRAR != (> 10000 & ==0)\n");
 	scanf("%i",&x);
@@ -56,18 +57,22 @@ int main(){
 			
 			}
 			
-
+		vet2[i] = vet[i];
+		
 		}
 
-		ordenador(vet,x);
-		//somador(vet,vet2,x);
+		ordenador(vet,vet2,x);
+		somador(vet2,vet3,x);
 
 		printf("VOCE DIGITOU TODAS AS %i \n",x);
 		for(i=0;i<x;i++){
-			printf(">>> %i\n",vet[i]);
+			(vet3[i]<50001)?printf("Somatorio %i: %i\n",vet2[i], vet3[i]):printf("Somatorio %i: ERRO \n",vet2[i]);
 		}
 
-	
+		
+
+
+
 	}//else principal
 }
 
