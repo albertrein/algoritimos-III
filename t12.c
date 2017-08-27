@@ -4,8 +4,8 @@
 int ordenador(int vetor[], int vetor2[], int contro){ //O
 	int i, j, aux;
 
-	for( i=0; i<contro; i++ ){
-	    for( j=i+1; j<contro; j++ ){
+	for(i=0;i<contro;i++){
+	    for(j=i+1;j<contro;j++){
 	        if( vetor2[i] > vetor2[j] ){
 	            aux = vetor2[i];
 	            vetor2[i] = vetor2[j];
@@ -14,6 +14,7 @@ int ordenador(int vetor[], int vetor2[], int contro){ //O
 		}
 		//printf("==>> %i\n", vetor[i]);
 	}
+	printf("#ORDENADO COM SUCESSO\n\n");
 }
 
 int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e transforma para positivo e calcula o valor sequencial
@@ -29,8 +30,43 @@ int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e tran
 		
 	}
 
+	printf("# Somatorios: \n");
+	for(i=0;i<contro;i++){
+		(val2[i]<50001)?printf("Somatorio %i: %i\n",val[i], val2[i]):printf("Somatorio %i: ERRO \n",val[i]);
+	}
+	printf("\n\n");
 }
 
+int primosrelativos(int vetor0[],int vetor02[], int contro){
+	int i,j, y, z, controle;
+	int x1[9],x2[9];
+	//div variaveis que contem o numero de valores divisiveis no vetor
+	for(i=0;i<contro;i++){
+		// if(vetor02[i] < 0){ 
+		// 	vetor02[i] *= -1;
+		// }//pegar o vet2 ordenado e trasfonrma todos em maiusculas
+	}	
+
+	for(i=0;i<contro;i++){
+		y=0;
+		z=i+1;
+		if(z==contro){z=0;}
+		for(j=2;j<=10;j++){			
+			if(((vetor02[i]%j)==0)&&((vetor02[z]%j)==0)){
+				printf("%i e %i: NÃO SÃO PRIMOS RELATIVOS\n",vetor02[i],vetor02[z]);
+				break;
+			}else{
+				y++;
+			}		
+		}
+		if(y!=0){
+			printf("%i e %i: primos relativos\n",vetor02[i],vetor02[z]);
+		}
+	}
+
+
+		
+}
 
 int main(){
 	int x, y, vet[TAM], vet2[TAM], vet3[TAM], i;
@@ -64,11 +100,12 @@ int main(){
 
 		ordenador(vet,vet2,x);
 		somador(vet2,vet3,x);
+		primosrelativos(vet,vet2,x);
 
-		printf("VOCE DIGITOU TODAS AS %i \n",x);
-		for(i=0;i<x;i++){
-			(vet3[i]<50001)?printf("Somatorio %i: %i\n",vet2[i], vet3[i]):printf("Somatorio %i: ERRO \n",vet2[i]);
-		}
+		// printf("VOCE DIGITOU TODAS AS %i \n",x);
+		// for(i=0;i<x;i++){
+		// 	(vet3[i]<50001)?printf("Somatorio %i: %i\n",vet2[i], vet3[i]):printf("Somatorio %i: ERRO \n",vet2[i]);
+		// }
 
 		
 
