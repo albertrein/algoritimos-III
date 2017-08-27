@@ -1,6 +1,21 @@
 #include <stdio.h>
 #define TAM 10000
 
+int ordenador(int vetor[], int vetor2[], int contro){ //O
+	int i, j, aux;
+
+	for( i=0; i<contro; i++ ){
+	    for( j=i+1; j<contro; j++ ){
+	        if( vetor2[i] > vetor2[j] ){
+	            aux = vetor2[i];
+	            vetor2[i] = vetor2[j];
+	            vetor2[j] = aux;
+	        }
+		}
+		//printf("==>> %i\n", vetor[i]);
+	}
+}
+
 int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e transforma para positivo e calcula o valor sequencial
 	int i;
 
@@ -16,20 +31,6 @@ int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e tran
 
 }
 
-int ordenador(int vetor[], int vetor2[], int contro){ //O
-	int i, j, aux;
-
-	for( i=0; i<contro; i++ ){
-	    for( j=i+1; j<contro; j++ ){
-	        if( vetor2[i] > vetor2[j] ){
-	            aux = vetor2[i];
-	            vetor2[i] = vetor2[j];
-	            vetor2[j] = aux;
-	        }
-		}
-		//printf("==>> %i\n", vetor[i]);
-	}
-}
 
 int main(){
 	int x, y, vet[TAM], vet2[TAM], vet3[TAM], i;
