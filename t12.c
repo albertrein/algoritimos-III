@@ -32,40 +32,40 @@ int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e tran
 
 	printf("# Somatorios: \n");
 	for(i=0;i<contro;i++){
-		(val2[i]<50001)?printf("Somatorio %i: %i\n",val[i], val2[i]):printf("Somatorio %i: ERRO \n",val[i]);
+		(val[i]<50001)?printf("Somatorio de %i: %i\n",val[i], val2[i]):printf("Somatorio de %i: ERRO \n",val[i]);
 	}
-	printf("\n\n");
+	printf("\n");
 }
 
 int primosrelativos(int vetor0[],int vetor02[], int contro){
 	int i,j, y, z, controle;
-	int x1[9],x2[9];
-	//div variaveis que contem o numero de valores divisiveis no vetor
+	
 	for(i=0;i<contro;i++){
-		// if(vetor02[i] < 0){ 
-		// 	vetor02[i] *= -1;
-		// }//pegar o vet2 ordenado e trasfonrma todos em maiusculas
-	}	
-
-	for(i=0;i<contro;i++){
-		y=0;
+		y=1;
 		z=i+1;
-		if(z==contro){z=0;}
-		for(j=2;j<=10;j++){			
-			if(((vetor02[i]%j)==0)&&((vetor02[z]%j)==0)){
-				printf("%i e %i: NÃO SÃO PRIMOS RELATIVOS\n",vetor02[i],vetor02[z]);
-				break;
-			}else{
-				y++;
+		if(z==contro){
+			z=0;
+		} //Verifica se terminou o for
+
+		//(vetor02[i]<vetor02[z])?controle=vetor02[i]:controle=vetor02[z];
+		if(vetor02[i] < vetor02[z]){
+			controle = vetor02[i];
+		}else{
+			controle = vetor02[z];
+		}
+
+		if(controle < 0){
+			controle *= -1;
+		}
+		//(controle<0)?controle = controle * -1:controle= controle * 1;
+
+		for(j=2;j<=controle;j++){			
+			if(((vetor02[i]%j)==0)&&((vetor02[z]%j)==0)){				
+				y++;				
 			}		
 		}
-		if(y!=0){
-			printf("%i e %i: primos relativos\n",vetor02[i],vetor02[z]);
-		}
+		(y==1)?printf("%i e %i: PRIMOS RELATIVOS\n",vetor02[i],vetor02[z]):printf("# %i e %i: NÃO SÃO PRIMOS RELATIVOS\n",vetor02[i],vetor02[z]);;
 	}
-
-
-		
 }
 
 int main(){
@@ -74,11 +74,10 @@ int main(){
 	printf("# DIGITE QUANTOS VALORES VOCE QUER REGISTRAR != (> 10000 & ==0)\n");
 	scanf("%i",&x);
 
-	if((x > TAM) || (x == 0)){
-		printf("#ERRO VALOR INVÁIDO\n");
+	if((x > TAM) || (x <= 0)){
 		printf("ERRO. TAMANHO INVALIDO\n");
 	}else{
-		printf("Digite %i numeros positivos ou negativos sem repetir\n",x);
+		printf("# Digite %i numeros positivos ou negativos sem repetir\n",x);
 
 		for(i=0;i<x; i++){ // FOr para
 			scanf("%i",&vet[i]);
@@ -101,15 +100,6 @@ int main(){
 		ordenador(vet,vet2,x);
 		somador(vet2,vet3,x);
 		primosrelativos(vet,vet2,x);
-
-		// printf("VOCE DIGITOU TODAS AS %i \n",x);
-		// for(i=0;i<x;i++){
-		// 	(vet3[i]<50001)?printf("Somatorio %i: %i\n",vet2[i], vet3[i]):printf("Somatorio %i: ERRO \n",vet2[i]);
-		// }
-
-		
-
-
 
 	}//else principal
 }
