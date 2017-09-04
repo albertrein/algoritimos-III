@@ -4,17 +4,16 @@
 int ordenador(int vetor[], int vetor2[], int contro){ //O
 	int i, j, aux;
 
-	for(i=0;i<contro;i++){
-	    for(j=i+1;j<contro;j++){
-	        if( vetor2[i] > vetor2[j] ){
+	for(i=0;i<contro;i++){	//ORDENA EM CRESCENTE
+		j=i+1;
+	    for(;j<contro;j++){
+	        if(vetor2[i] > vetor2[j]){
 	            aux = vetor2[i];
 	            vetor2[i] = vetor2[j];
 	            vetor2[j] = aux;
 	        }
 		}
-		//printf("==>> %i\n", vetor[i]);
-	}
-	printf("#ORDENADO COM SUCESSO\n\n");
+	}	
 }
 
 int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e transforma para positivo e calcula o valor sequencial
@@ -24,17 +23,9 @@ int somador(int val[], int val2[], int contro){ //Verifiva se é negativo e tran
 		val2[i] = val[i];
 		if(val2[i]<0){
 			val2[i] *= -1;
-		}
-		
-		val2[i] = ((1+val2[i])*val2[i])/2;
-		
-	}
-
-	printf("# Somatorios: \n");
-	for(i=0;i<contro;i++){
-		(val[i]<50001)?printf("Somatorio de %i: %i\n",val[i], val2[i]):printf("Somatorio de %i: ERRO \n",val[i]);
-	}
-	printf("\n");
+		}		
+		val2[i] = ((1+val2[i])*val2[i])/2; //Formula matematica para a soma da progressão aritimética
+	}	
 }
 
 int primosrelativos(int vetor0[],int vetor02[], int contro){
@@ -79,26 +70,33 @@ int main(){
 	}else{
 		printf("# Digite %i numeros positivos ou negativos sem repetir\n",x);
 
-		for(i=0;i<x; i++){ // FOr para
+		for(i=0;i<x; i++){ // FOr para ler os valores
 			scanf("%i",&vet[i]);
-			for(y=0;y<i;y++){
-				if(y==i){
-					continue;
-				}
+
+			for(y=0;y<i;y++){ //FOR DE VERIFICAÇÃO DE OCORRENCIA
+				// if(y==i){
+				// 	continue;
+				// }
 				if(vet[y] == vet[i]){
 					printf("ERRO. JA EXISTE\n");
 					printf("# Digite Novamente\n");
 					i--;
+					continue;
 				}
 			
-			}
-			
-		vet2[i] = vet[i];
-		
+			}			
+			vet2[i] = vet[i]; //VET2 recebe vet1 para alterações futuras		
 		}
 
 		ordenador(vet,vet2,x);
+		printf("#ORDENADO COM SUCESSO\n\n");
+
 		somador(vet2,vet3,x);
+		printf("# Somatorios: \n");
+		for(i=0;i<x;i++){
+			(vet2[i]<50001)?printf("Somatorio de %i: %i\n",vet2[i], vet3[i]):printf("Somatorio de %i: ERRO \n",vet2[i]);
+		}
+		printf("\n");
 		primosrelativos(vet,vet2,x);
 
 	}//else principal
@@ -107,8 +105,5 @@ int main(){
 /*
 vet[] == valores recebidos
 vet2[] == valores ordenados
-vet3[] == sequenciais
-
-
-
+vet3[] == somatorios
 */
