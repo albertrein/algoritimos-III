@@ -1,6 +1,18 @@
 #include <stdio.h>
 #define TAM 80000
 
+
+int valor_inedito(int vet[],int i){
+	int y;
+	for(y=0;y<i;y++){ //FOR DE VERIFICAÇÃO DE OCORRENCIA
+		if(vet[y] == vet[i]){				
+			printf("ERRO. JA EXISTE\n");
+			return 1;
+		}
+	}
+	return 0;
+}
+
 int primosrelativos(int vet[], int contro){
 	int i,j, y, z, controle;
 	
@@ -79,19 +91,17 @@ for(i=0;i<t; i++){ // FOr para ler os valores
 		i--;
 		continue;
 	}
+	
+	y = valor_inedito(vet,i); //Verifica a ocorrencia
 
-	for(y=0;y<i;y++){ //FOR DE VERIFICAÇÃO DE OCORRENCIA
-		if(vet[y] == vet[i]){
-			((vet[i]%2)==0)?par--:impar--; //contagem de par e impares	
-			printf("ERRO. JA EXISTE\n");
-			i--;
-			continue;
-		}
-	}			
+	if(y == 1){
+		((vet[i]%2)==0)?par--:impar--; //Retirar de par ou impares
+		i--;
+		continue;
+	}
+			
 			
 }
-
-
 
 	for(i=0;i<t;i++){	//PASSA OS IMPARES PARA AS ULTIMAS POSIÇÕES -------======== função enviar as variaveris ṕar e impar
 			j=i+1;
@@ -132,15 +142,10 @@ for(i=0;i<t; i++){ // FOr para ler os valores
 		}
 	}
 
-	// for(i=0;i<t;i++){
-	// 	printf("%i |",vet[i]);
-	// }
-	//printf("\nPAR=%i || IMPARES = %i\n",par, impar);
-
 	primosrelativos(vet,t);
 
 	for(i=0;i<t;i++){
-		if(vet[i<=40000]){
+		if(vet[i]<=40000){
 			triangular(vet,i);
 		}
 	}
