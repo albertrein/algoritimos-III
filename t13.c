@@ -32,26 +32,23 @@ int primosrelativos(int vet[], int contro){
 	}
 }
 
-int triangulares(int vet[], int i){
-	int j, aux = 0;
+int triangular(int vet[], int i){
 
-	// for(j=1;j<vet[i];j++){
-	// 	//aux = (j*(j+1))/2;
-	// 	//aux = ((j * j) + j) / 2;
-	// }
+	int j, aux, g;
+	g = vet[i];
 
-
-for(j = 1 ; j*(j+1)*(j+2)<=vet[i]; j++){
-    if(j*(j+1)*(j+2)==vet[i]){
-        aux = 1;
-    }
+	if(g < 0){
+		g *= -1;
+	}
+	aux = 0;
+	for(j=1;aux<g;j+=1){
+		//aux = ((j*j)+j)/2;
+		aux = ((j * j) + j) / 2;
+	}
+	//printf("AUX = %i || G = %i",aux,g);
+	(aux == g)?printf("%i TRIANGULAR \n",vet[i]):0;
 }
 
-
-
-
-	return aux;	
-}
 
 int main(){
 	int vet[TAM], n, t, aux;
@@ -59,19 +56,42 @@ int main(){
 	int par=0, impar=0;
 
 	while (t<=0){
-	   	printf("# Digite um número positivo:\n");
+	   	printf("# Digite um número positivo: (1 e %i)\n",TAM);
 	   	if (scanf("%d",&t)==0){
-	      	printf("ERRO. DIGITE NOVAMENTE\n");
+	      	printf("ERRO ENTRADA\n");
 	      	while(fgetc(stdin)!='\n');
 	      	continue;   
-	   }	   
+	   }
+	   if(t < 1 || t > TAM){
+	   	t=0;
+	   	printf("ERRO. TAMANHO INVALIDO\n");
+	   }
+
 	}
 
-	for(i=0;i<t;i++){ 
-		//printf("LE VALORES: ");  			//LÊ VALORES
-		scanf("%i",&vet[i]); //leitura
-		((vet[i]%2)==0)?par++:impar++; //contagem de par e impares
+
+for(i=0;i<t; i++){ // FOr para ler os valores
+	if(scanf("%i",&vet[i])>0){
+		((vet[i]%2)==0)?par++:impar++; //contagem de par e impares	
+	}else{	
+		printf("ERRO ENTRADA\n");
+		while(fgetc(stdin)!='\n');
+		i--;
+		continue;
 	}
+
+	for(y=0;y<i;y++){ //FOR DE VERIFICAÇÃO DE OCORRENCIA
+		if(vet[y] == vet[i]){
+			((vet[i]%2)==0)?par--:impar--; //contagem de par e impares	
+			printf("ERRO. JA EXISTE\n");
+			i--;
+			continue;
+		}
+	}			
+			
+}
+
+
 
 	for(i=0;i<t;i++){	//PASSA OS IMPARES PARA AS ULTIMAS POSIÇÕES -------======== função enviar as variaveris ṕar e impar
 			j=i+1;
@@ -112,18 +132,16 @@ int main(){
 		}
 	}
 
+	// for(i=0;i<t;i++){
+	// 	printf("%i |",vet[i]);
+	// }
+	//printf("\nPAR=%i || IMPARES = %i\n",par, impar);
+
 	primosrelativos(vet,t);
 
 	for(i=0;i<t;i++){
-		aux = triangulares(vet,i);
-		printf("aux == %i\n",aux);
+		if(vet[i<=40000]){
+			triangular(vet,i);
+		}
 	}
-
-printf("\n");
-for(i=0;i<t;i++){  //for pares
-		printf("%i  |",vet[i]);
-	}
-printf("PAR[%i] || IMPAR[%i]\n",par,impar);
-
-
 }
