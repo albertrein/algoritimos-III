@@ -2,18 +2,33 @@
 #include <string.h>
 #define TAM 20001
 
-// int cript(char *st, int i, int n){
-// 	int j;
-// 	for(j = 0;j < n;j++){
-// 		st[j] = 
-// 	}
-// }
+//adicionar maiusculas e minusculas numa função apenas, também em criptografa e descriptografa
+//retirar quaisquer elementos fora das letras minusculas
 
 int conta_Chars(char *st){
 	int i;
 	for(i=0;st[i];i++);
 	return i;
 }
+
+ int cript(char *st, int i, int n){ //verificar  int i e int n	//Recebe a string sem tokens e maiuscula
+ 	int j;
+ 	for(j = 0;j<n;j++){
+ 		if((st[j] >= 88)||st[j] <= 90){
+ 			st[j] -= 23;
+ 			continue;
+ 		}
+ 		st[j] += 3;
+ 	}
+ }
+
+ int decript(char *st){
+ 	int i, n;
+ 	n = conta_Chars(st);
+ 	for(i=0;i<n;i++){
+
+ 	}
+ }
 
 int maiuscula(char *st){
 	int i, n;
@@ -41,10 +56,10 @@ int del_Token(char *st, char token1, int token2){
 	//for(n=0;st[n];n++); //CONTA CARACTERES
 	n = conta_Chars(st);
 	for(i=0;i<n;i++){
-		if((st[i] == token1)||(st[i] == token2)){
+		if((st[i] == token1)||(st[i] == token2)||(st[i] == ".")){
 			for(j=i+1;j<n;j++){
 				st[j-1] = st[j];
-				if(j+1 == st[j]){ //INSERI O ZERO ABSOLUTO PARA O FIM DA STRING
+				if((j+1) == st[j]){ //INSERI O ZERO ABSOLUTO PARA O FIM DA STRING
 					st[j+1] = 0;
 				}
 			}
