@@ -19,6 +19,26 @@ int quant_elementos(char *string, int opc){
 	return i;
 }
 
+int lestring(char *s, int max)
+{
+    int i = 0;
+    char a;
+
+    for (i = 0; i < (max - 1); i++) {
+	a = fgetc(stdin);
+
+	if   ((a == '\n') && (i == 0)) {
+	    i = i - 1;
+	    continue;
+	}
+	if (a == '\n')
+	    break;
+	s[i] = a;
+    }
+    s[i] = 0;
+    return (i);
+}
+
 int cCLEANER(char *string){
 	int i, n;
 	n = quant_elementos(string, 1);
@@ -114,7 +134,8 @@ int main(){
 
 for(i=0;i<n;i++){
 		printf("# DIGITE FRASE\n");
-		fgets(frase, MAX, stdin);
+		//fgets(frase, MAX, stdin);
+		lestring(frase,MAX);
 		x += quant_elementos(frase,2);
 		if(x < 1){
 			i--;
