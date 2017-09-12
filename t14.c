@@ -1,89 +1,103 @@
 #include <stdio.h>
-#include <string.h>
-#define TAM 20001
+#define MAX 20001
 
-//adicionar maiusculas e minusculas numa função apenas, também em criptografa e descriptografa
-//retirar quaisquer elementos fora das letras minusculas
-
-int conta_Chars(char *st){
+int quant_elementos(char *string, int opc){
 	int i;
-	for(i=0;st[i];i++);
+	if(opc == 1){
+		//printf("# COntagem ELEMENTOS\n");
+		for(i=0;string[i];i++);
+		return i;	
+	}
+		//printf("# COntagem SEM enter\n");
+		for(i=0;string[i];i++){
+			if(string[i] == '\n'){
+				string[i] == ' ';
+				//i--;
+				break;
+			}
+		}	
 	return i;
 }
 
- int cript(char *st, int i, int n){ //verificar  int i e int n	//Recebe a string sem tokens e maiuscula
- 	int j;
- 	for(j = 0;j<n;j++){
- 		if((st[j] >= 88)||st[j] <= 90){
- 			st[j] -= 23;
- 			continue;
- 		}
- 		st[j] += 3;
- 	}
- }
-
- int decript(char *st){
- 	int i, n;
- 	n = conta_Chars(st);
- 	for(i=0;i<n;i++){
-
- 	}
- }
-
-int maiuscula(char *st){
+int cCLEANER(char *string){
 	int i, n;
-	n = conta_Chars(st);
-	for(i=0;i<n;i++){
-		if(st[i] >= 97 && st[i] <= 122){
-			st[i] -= 32;
-		}
+	n = quant_elementos(string, 1);
+	for (i=n;i>=0; i--){
+		string[i] = 0;
 	}
 }
 
-int minuscula(char *st){
-	int i, n;
-	n = conta_Chars(st);
-	for(i=0;i<n;i++){
-		if(st[i] >= 65 && st[i] <= 90){
-			st[i] += 32;
-		}
+int encryption(char *aux, int opc){
+	int j, n;
+	n = quant_elementos(aux,1);	
+	if(opc == 1){	//ENCRIPTAR
+		for(j = 1;j<n;j++){
+	 		//if(st[0] == '$'){continue;}
+	 		if((aux[j] >= 65)&&(aux[j] <= 87)){
+	 			aux[j] += 3; 			
+	 		}else{
+	 			aux[j] -= 23;
+	 		} 		
+	 	}
+		return 0;
+	}
+	//DESCRIPTAR
+	for(j=0;j<n;j++){
+ 		//if(aux[0] == '$'){continue;}
+		if((aux[j] >= 68)&&(aux[j] <= 90)){
+			aux[j] -= 3; 			
+		}else{
+			aux[j] += 23;
+		} 	
 	}
 }
 
-int del_Token(char *st, char token1, int token2){
-	int i, j, n;
-	char aux;
-	//for(n=0;st[n];n++); //CONTA CARACTERES
-	n = conta_Chars(st);
-	for(i=0;i<n;i++){
-		if((st[i] == token1)||(st[i] == token2)||(st[i] == ".")){
-			for(j=i+1;j<n;j++){
-				st[j-1] = st[j];
-				if((j+1) == st[j]){ //INSERI O ZERO ABSOLUTO PARA O FIM DA STRING
-					st[j+1] = 0;
-				}
+int minusc_MAIUSC(char *aux, int opc){
+	int i, n;
+	n = quant_elementos(aux,1);
+	if(opc == 1){
+		for(i=0;i<n;i++){
+			if(aux[i] >= 65 && aux[i] <= 90){
+				aux[i] += 32;
 			}
-			i--;
+		}
+		return 0;
+	}
+
+	for(i=1;i<n;i++){
+		if(aux[i] >= 97 && aux[i] <= 122){
+			aux[i] -= 32;
 		}
 	}
+
 }
 
-int gerenciador(char *st, int i, int n){	//Gerencia qual função deve ser executada
-	if(st[0] == '$'){
-		printf("# DEOGRAFA\n");
-	}else{
-		printf("# CRIPTOGRAFA\n");
-		del_Token(st,',',' '); //retira espaço e ','
-		maiuscula(st);
-		//cript(st, i, n);
-	}	
-}
+int string_tok(char *string, char *aux, int opc){
+	int i, j = 1, quant, cont = 0;
 
+	//if(opc == 1){
+		quant = quant_elementos(string,1);
+		//(opc == 1)?aux[0] = ' ':j = 0;
+		if(opc == 1){
+			aux[0] = ' ';
+		}else{
+			j = 0;
+		}
+		for(i=0;i<quant;i++){
+			if(((string[i] >= 65)&&(string[i] <= 90)) || ((string[i] >= 97)&&(string[i] <= 122))){
+				aux[j] = string[i];
+				j++;
+				cont++;
+			}
+		}
+		//printf("=== %s\n",aux);
+		return cont;
+}
 
 int main(){
-	char string[TAM];
-	int i, n, j;
-
+	int i, j, n, q = 0, x=0, y=0;
+	char frase[MAX];
+	char suporte[MAX];
 
 	while (n<=0){ //Problemas 
 	   	printf("# Digite Quantas Frases Voce Quer Digitar:\n");
@@ -92,29 +106,48 @@ int main(){
 	      	while(fgetc(stdin)!='\n');
 	      	continue;   
 	   }
-	   if(n < 1 || n > TAM){
+	   if(n < 1 || n > MAX){
 	   	n=0;
 	   	printf("ERRO. TAMANHO INVALIDO\n");
 	   }
 	}
 
-	for(i=0;i<n;i++){
-		printf("#DIGITE A %i FRASE \n",i);
-		fgets(string, TAM, stdin);
-
-		if(strlen(string) < 2){
+for(i=0;i<n;i++){
+		printf("# DIGITE FRASE\n");
+		fgets(frase, MAX, stdin);
+		x += quant_elementos(frase,2);
+		if(x < 1){
 			i--;
 			continue;
 		}
-		del_Token(string,',',' '); //retira espaço e ','
-		j = conta_Chars(string);
-		printf("a string = %s\n",string);
-		printf("NUMERO DE CHARS%i\n",j);
-		//gerenciador(string,i,n);
-		maiuscula(string);
-		printf("maiuscula = %s\n",string);
-		minuscula(string);
-		printf("minuscula = %s\n",string);
-	}
 		
+		if(frase[0] == '$'){
+			x--;
+			printf("# DECIFRA\n");
+			//printf("%s\n",frase);
+			y += string_tok(frase,suporte,2);
+			encryption(suporte,2);
+			minusc_MAIUSC(suporte,1);
+			printf("%s\n",suporte);
+			cCLEANER(suporte);
+		}else{
+			printf("# CIFRA\n");
+			y += string_tok(frase, suporte, 1);
+			minusc_MAIUSC(suporte,2);
+			//printf("FINAL 1 %s\n",suporte);
+			minusc_MAIUSC(suporte,2);
+			encryption(suporte,1);
+			suporte[0] = '$';
+			printf("%s\n",suporte);
+			cCLEANER(suporte);
+		}
+	}
+	printf("%i CARS DIGITADOS\n",x);
+	printf("%i LETRAS\n",y);
+	printf("FIM\n");
 }
+
+
+// quant_elementos (string, contagem com enter (1) || contagem sem enter != 1)
+// minusc_MAIUSC(strng, 1 para minuscula, 2 para maiuscula);
+//encrypter (string, 1 para encript, 2 para descript)
