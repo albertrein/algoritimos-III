@@ -119,7 +119,7 @@ int main(){
 	char frase[MAX];
 	char suporte[MAX];
 
-	while (n<=0){ //Problemas 
+	do{ 
 	   	printf("# Digite Quantas Frases Voce Quer Digitar:\n");
 	   	if (scanf("%d",&n)==0){
 	      	printf("ERRO ENTRADA\n");
@@ -130,7 +130,7 @@ int main(){
 	   	n=0;
 	   	printf("ERRO. TAMANHO INVALIDO\n");
 	   }
-	}
+	}while(n<=0);
 
 for(i=0;i<n;i++){
 		printf("# DIGITE FRASE\n");
