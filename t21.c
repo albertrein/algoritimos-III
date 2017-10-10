@@ -85,7 +85,7 @@ int main(int argc, char *argv[]){
 	struct FUNC x[MAXFUNC];
 	struct FUNC aux;
 	double soma = 0;
-
+	char []
 
 	//FALTA REALIZAR A VERIFICAÇÃO DA QUANTIDADE INSERIDO
 
@@ -106,41 +106,55 @@ int main(int argc, char *argv[]){
 	// 	n = atoi(argv[1]);
 	// }
 
-	// //EU:
-	// if(argc < 2){	//argc não passado por parametro
-	// 	do{ 
-	// 	   	printf("# Digite Quantos Funcionarios Voce Quer Registrar?\n");
-	// 	   	if (scanf("%d",&n)==0){
-	// 	   		printf("ERRO. %i\n",n);
-	// 		   	n=0;
-	// 	      	while(fgetc(stdin)!='\n');
-	// 	      	continue;   
-	// 	   }
-	// 	   if(n < 1 || n > MAXFUNC){
-	// 	   		printf("ERRO. %i\n",n);
-	// 		   	n=0;
-	// 	   }
-	// 	}while(n<=0);			
-	// }else{	//Recebido argc pela main
-	// 	if(atoi(argv[1])==0){ //RECEBEU NULL
-	// 		printf("ERRO. %s\n",argv[1]);
-	// 		do{ 
-	// 		   	printf("# Digite Quantos Funcionarios Voce Quer Registrar?\n");
-	// 		   	if (scanf("%d",&n)==0){
-	// 		      	printf("ERRO ENTRADA\n");
-	// 		      	n = 0;
-	// 		      	while(fgetc(stdin)!='\n');
-	// 		      	continue;   
-	// 		   }
-	// 		   if(n < 1 || n > MAXFUNC){
-	// 		   	printf("ERRO. %i\n",n);
-	// 		   	n=0;
-	// 		   }
-	// 		}while(n<=0);
-	// 	}else{
-	// 		n = atoi(argv[1]);
-	// 	}	
-	// }
+	//EU:
+	if(argc < 2){	//argc não passado por parametro
+		do{ 
+		   	printf("# Digite Quantos Funcionarios Voce Quer Registrar?\n");
+		   	
+		   // 	if (scanf("%i",&n)==0){
+		   // 		printf("ERRO %i\n",n);
+			  //  	n=0;
+		   //    	while(fgetc(stdin)!='\n');
+		   //    	continue;   
+		   // }
+		   if(n < 1 || n > MAXFUNC){
+		   		printf("ERRO %i\n",n);
+			   	n=0;
+		   }
+		}while(n<=0);			
+	}else{	//Recebido argc pela main
+		if(atoi(argv[1])==0){ //RECEBEU NULL
+			printf("ERRO %s\n",argv[1]);
+			do{ 
+			   	printf("# Digite Quantos Funcionarios Voce Quer Registrar?\n");
+			   	if (scanf("%d",&n)==0){
+			      	printf("ERRO ENTRADA\n");
+			      	n = 0;
+			      	while(fgetc(stdin)!='\n');
+			      	continue;   
+			   }
+			   
+			}while(n<=0);
+		}else{
+			n = atoi(argv[1]);
+			
+			do{ 
+				if(n < 1 || n > MAXFUNC){
+				   	printf("ERRO %i\n",n);
+				   	n=0;
+				}
+			   	printf("# Digite Quantos Funcionarios Voce Quer Registrar?\n");
+			   	if (scanf("%d",&n)==0){
+			      	printf("ERRO ENTRADA\n");
+			      	n = 0;
+			      	while(fgetc(stdin)!='\n');
+			      	continue;   
+			   }
+			   
+			}while(n<=0);
+			
+		}	
+	}
 
 	
 
