@@ -5,17 +5,35 @@
 
 struct FUNC{
 	char nome[STRMAX];
-	char *street;
+	char *endereco;
 	int n_reg;
 	double salario;
 };
 
+int letraMaiuscula(char *frases){
+	int contador;
+	for(contador = 0; frases[contador]; contador++){
+		if((frases[contador] >= 'A') && (frases[contador] <= 'Z') || frases[contador] == ' ' || (frases[contador] >= '1' && frases[contador] <= '9' )){
+			continue;
+		}
+		frases[contador] = frases[contador] -32 ;
+	}
+}
 
-int lestring(char *s, int max)
-{
+int inteiroslidos(){
+    int aux;
+
+    while (scanf("%d", &aux) == 0) {
+        printf("ERRO entrada invalida\n\n");
+        printf("# ERRO. Digitou lixo\n\n");
+        while (fgetc(stdin) != '\n');
+    }
+    return (aux);
+}
+
+int lestring(char *s, int max){
     int i = 0;
     char a;
-
     for (i = 0; i < (max - 1); i++) {
 	a = fgetc(stdin);
 
@@ -30,83 +48,31 @@ int lestring(char *s, int max)
     s[i] = 0;
     return (i);
 }
-int conta(char *s){
-   int i;
-   for(i=0;s[i];i++);
-   return i;
-}
-
-int letraMaiuscula(char *frases){
-	int contador;
-	for(contador = 0; frases[contador]; contador++){
-		if((frases[contador] >= 'A') && (frases[contador] <= 'Z') || frases[contador] == ' ' || (frases[contador] >= '1' && frases[contador] <= '9' )){
-			continue;
-		}
-		frases[contador] = frases[contador] -32 ;
-	}
-}
-
-int leitura_Valores(struct FUNC *xx, int qtd, int strmax, double *somatorio, int max){
-	//struct FUNC xx;
-	int i, j;
-	char *st_aux;
-
-	st_aux = (char *) malloc(max);
-
-	printf("#Digite o nome do Funcionario: \n");
-	lestring(xx->nome,strmax);
-	letraMaiuscula(xx->nome);
-	
-	printf("# Endereco\n");
-	lestring(st_aux,strmax);
-	j = conta(st_aux);
-	
-	//xx->street= malloc(sizeof(char)*j);
-	xx->street = (char *) malloc(j);
-	
-
-	do{ 
-		printf("# Digite o registro do Funcionario:\n");
-		if (scanf("%i",&xx->n_reg)==0){
-			printf("ERRO entrada invalida\n");
-		 	xx->n_reg=0;
-		   	while(fgetc(stdin)!='\n');
-		   	continue;   
-		}
-	}while(xx->n_reg<=0);
-
-	do{ 
-		printf("# Digite o salario, em reais:\n");
-		if (scanf("%lf",&xx->salario)==0){
-			printf("ERRO entrada invalida\n");
-		 	xx->salario=0;
-		   	while(fgetc(stdin)!='\n');
-		   	continue;   
-		}
-	}while(xx->salario<=0);
-
-	//return xx;
-}
-int inteiroslidos(){
-    int aux;
-
-    while (scanf("%d", &aux) == 0) {
-        printf("ERRO entrada invalida\n\n");
-        printf("# ERRO. Digitou lixo\n\n");
-        while (fgetc(stdin) != '\n');
-    }
-    return (aux);
-}
 
 int strCMP(char *a, char *b){
     while (*a && *b && *a == *b) { ++a; ++b; }
     return (unsigned char)(*a) - (unsigned char)(*b);
 }
 
+int conta(char *s){
+   int i;
+   for(i=0;s[i];i++);
+   return i;
+}
+
+int strCPY(char *s, char *s2) {
+   int i;
+   	for (i = 0; s2[i] != '\0'; ++i){ 
+      s[i] = s2[i];
+    } 
+   s[i] = '\0';
+}
+
 int main(int argc, char *argv[]){
-	int i, j, n, aux2, conta;
-	struct FUNC *x;
-	struct FUNC aux;
+	int n, i, j; 
+	char aux[MAX];
+	struct FUNC *p;
+	struct FUNC aup;
 	double soma = 0;
 
 	if (argc > 1) {
@@ -115,8 +81,7 @@ int main(int argc, char *argv[]){
             printf("ERRO %s\n", argv[1]);
             printf("# ERRO: quantidade de funcionarios deve ser maior que 0\n");
         }
-    }
-    
+    }    
     while (n <= 0) {
         printf("# Quantos funcionarios voce quer cadastrar:\n");
         n = inteiroslidos();
@@ -126,54 +91,97 @@ int main(int argc, char *argv[]){
         }
     }
 
-    x = (struct FUNC *) malloc(n);
+    p = (struct FUNC*) malloc(n* sizeof(struct FUNC));
 
+    if(p == NULL){ //VERIFICAÇÃO DA ALOCAÇÃO
+    	printf("# ERRO. LIMITE DE ALOCAÇÃO DA STRUTURA FOI ALCANÇADO.\n");
+    	return 1;
+    }
 
-	for(i=0;i<n;i++){//Leitura de Valores
-		leitura_Valores(x,i,STRMAX,&soma,MAX);
-	}
+    for(i=0;i<n;i++){	//leitura
+    	printf("#Digite o nome do Funcionario %i: \n",i);
+		lestring(p[i].nome,STRMAX);
+		letraMaiuscula(p[i].nome);
 
-	for (i = 1; i < n; i++) {
+    	printf("#Le endereco: \n");
+    	lestring(aux,MAX);
+    	j = conta(aux);
+    	p[i].endereco = (char *)malloc((j+1) * sizeof(char));
+
+    	if(p[i].endereco == NULL){ //VERIFICAÇÃO DA ALOCAÇÃO DA STRING
+    		printf("# ERRO. LIMITE DE ALOCAÇÃO DA STRING FOI ALCANÇADO.\n");
+    		return 1;
+    	}
+
+    	strCPY(p[i].endereco,aux);
+
+	    do{ 
+			printf("# Digite o registro do Funcionario:\n");
+			if (scanf("%i",&p[i].n_reg)==0){
+				printf("ERRO entrada invalida\n");
+			 	p[i].n_reg=0;
+			   	while(fgetc(stdin)!='\n');
+			   	continue;   
+			}
+		}while(p[i].n_reg<=0);
+
+		do{ 
+			printf("# Digite o salario, em reais:\n");
+			if (scanf("%lf",&p[i].salario)==0){
+				printf("ERRO entrada invalida\n");
+			 	p[i].salario=0;
+			   	while(fgetc(stdin)!='\n');
+			   	continue;   
+			}
+		}while(p[i].salario<=0);
+
+    }    
+
+    for (i = 1; i < n; i++) {
 	   for (j=1;j<n;j++) {
-	      if (strCMP(x[j-1].nome, x[j].nome) > 0) {
-	         aux = x[j-1];
-	         x[j-1] = x[j];
-	         x[j] = aux;
+	      if (strCMP(p[j-1].nome, p[j].nome) > 0) {
+	         aup = p[j-1];
+	         p[j-1] = p[j];
+	         p[j] = aup;
 	      }
 	   }
 	}
 
 	printf("#*************************************#\n");
-	for(i=0;i<n;i++){//Leitura de Valores
-		printf("%06d %s, %s, R$ %.2lf\n",x[i].n_reg,x[i].nome,x[i].street,x[i].salario);
+	for(i=0;i<n;i++){
+		printf("%06d %s, %s, R$ %.2lf\n",p[i].n_reg,p[i].nome,p[i].endereco,p[i].salario);
 		
 	}
-	for (i = 0;i<n;i++) {
+
+	for (i = 1;i<n;i++) {
         for (j = 0;j<n-i;j++) {
-            if (x[j].salario < x[j+1].salario) {
-                aux = x[j];
-                x[j] = x[j+1];
-                x[j+1] = aux;
+            if (p[j].salario < p[j+1].salario) {
+                aup = p[j];
+                p[j] = p[j+1];
+                p[j+1] = aup;
             }
         }
-    }	
-
+    }
 	printf("#*************************************#\n");
+
 	if(n < 10){
 		for(i = 0; i < n; i++){
-			printf("R$    %.2lf %s\n",x[i].salario,x[i].nome);
+			printf("R$    %.2lf %s\n",p[i].salario,p[i].nome);
 		}
 	
 	}else{
 		for(i = 0; i < 10; i++){
-			printf("R$    %.2lf %s\n",x[i].salario,x[i].nome);
+			printf("R$    %.2lf %s\n",p[i].salario,p[i].nome);
 		}	
 	}
 	
 	for(i = 0; i < n; i++){
-		soma=soma+x[i].salario;
+		soma=soma+p[i].salario;
 	}
 	printf("#Folha de salario total:");
     printf("\nR$ %.2lf\n",soma);
     printf("\n# FIM\n");
+
+
+
 }
