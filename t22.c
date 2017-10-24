@@ -10,13 +10,28 @@ struct FUNC{
 	double salario;
 };
 
-int letraMaiuscula(char *frases){
-	int contador;
-	for(contador = 0; frases[contador]; contador++){
-		if((frases[contador] >= 'A') && (frases[contador] <= 'Z') || frases[contador] == ' ' || (frases[contador] >= '1' && frases[contador] <= '9' )){
-			continue;
+
+int conta(char *s){
+   int i;
+   for(i=0;s[i];i++);
+   return i;
+}
+
+int letraMaiuscula(char *aux, int opc){
+	int i, n;
+	n = conta(aux);
+	if(opc == 1){
+		for(i=0;i<n;i++){
+			if(aux[i] >= 65 && aux[i] <= 90){
+				aux[i] += 32;
+			}
 		}
-		frases[contador] = frases[contador] -32 ;
+		return 0;
+	}
+	for(i=1;i<n;i++){
+		if(aux[i] >= 97 && aux[i] <= 122){
+			aux[i] -= 32;
+		}
 	}
 }
 
@@ -54,12 +69,6 @@ int strCMP(char *a, char *b){
     return (unsigned char)(*a) - (unsigned char)(*b);
 }
 
-int conta(char *s){
-   int i;
-   for(i=0;s[i];i++);
-   return i;
-}
-
 int strCPY(char *s, char *s2) {
    int i;
    	for (i = 0; s2[i] != '\0'; ++i){ 
@@ -68,43 +77,21 @@ int strCPY(char *s, char *s2) {
    s[i] = '\0';
 }
 
-int main(int argc, char *argv[]){
-	int n, i, j; 
-	char aux[MAX];
-	struct FUNC *p;
-	struct FUNC aup;
-	double soma = 0;
 
-	if (argc > 1) {
-        n = atoi(argv[1]);
-        if ((n <= 0)){
-            printf("ERRO %s\n", argv[1]);
-            printf("# ERRO: quantidade de funcionarios deve ser maior que 0\n");
-        }
-    }    
-    while (n <= 0) {
-        printf("# Quantos funcionarios voce quer cadastrar:\n");
-        n = inteiroslidos();
-        if ((n <= 0)) {
-            printf("ERRO %i\n", n);
-            printf("# ERRO: quantidade de funcionarios deve ser maior que 0\n");
-        }
-    }
 
-    p = (struct FUNC*) malloc(n* sizeof(struct FUNC));
+int leitura_struct(struct FUNC p[], int n, int max, int strmax){
+	int i, j;
+	char *aux;
 
-    if(p == NULL){ //VERIFICAÇÃO DA ALOCAÇÃO
-    	printf("# ERRO. LIMITE DE ALOCAÇÃO DA STRUTURA FOI ALCANÇADO.\n");
-    	return 1;
-    }
+	aux = (char*)malloc(max+1);
 
-    for(i=0;i<n;i++){	//leitura
+	for(i=0;i<n;i++){	//leitura
     	printf("#Digite o nome do Funcionario %i: \n",i);
-		lestring(p[i].nome,STRMAX);
-		letraMaiuscula(p[i].nome);
+		lestring(p[i].nome,strmax);
+		letraMaiuscula(p[i].nome,2);
 
     	printf("#Le endereco: \n");
-    	lestring(aux,MAX);
+    	lestring(aux,max);
     	j = conta(aux);
     	p[i].endereco = (char *)malloc((j+1) * sizeof(char));
 
@@ -134,8 +121,39 @@ int main(int argc, char *argv[]){
 			   	continue;   
 			}
 		}while(p[i].salario<=0);
+    }   
+}
 
+int main(int argc, char *argv[]){
+	int n, i, j; 
+	struct FUNC *p;
+	struct FUNC aup;
+	double soma = 0;
+
+	if (argc > 1) {
+        n = atoi(argv[1]);
+        if ((n <= 0)){
+            printf("ERRO %s\n", argv[1]);
+            printf("# ERRO: quantidade de funcionarios deve ser maior que 0\n");
+        }
     }    
+    while (n <= 0) {
+        printf("# Quantos funcionarios voce quer cadastrar:\n");
+        n = inteiroslidos();
+        if ((n <= 0)) {
+            printf("ERRO %i\n", n);
+            printf("# ERRO: quantidade de funcionarios deve ser maior que 0\n");
+        }
+    }
+
+    p = (struct FUNC*) malloc(n* sizeof(struct FUNC));
+
+    if(p == NULL){ //VERIFICAÇÃO DA ALOCAÇÃO
+    	printf("# ERRO. LIMITE DE ALOCAÇÃO DA STRUTURA FOI ALCANÇADO.\n");
+    	return 1;
+    }
+
+    leitura_struct(p, n, MAX, STRMAX); 
 
     for (i = 1; i < n; i++) {
 	   for (j=1;j<n;j++) {
