@@ -149,7 +149,7 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 		        y++;
 			}    
 
-			
+			letraMaiuscula(p[i].nome,2);
 
 
 	    	// printf("#Le endereco: \n");
@@ -256,7 +256,6 @@ int main(int argc, char *argv[]){
     }else{
     	leitura_struct(p, n, MAX, STRMAX,2,arch); 
     }
-    
 
     for (i = 1; i < n; i++) {
 	   for (j=1;j<n;j++) {
@@ -268,7 +267,8 @@ int main(int argc, char *argv[]){
 	   }
 	}
 
-	printf("#*************************************#\n");
+	printf("#***************ORDEM ALFABETICA***************#\n");
+	fprintf(arch1,"OEDEM ALFABETICA ... \n");
 	for(i=0;i<n;i++){
 		printf("%06d %s, %s, R$ %.2lf\n",p[i].n_reg,p[i].nome,p[i].endereco,p[i].salario);
 		fprintf(arch1,"%06d %s, %s, R$ %.2lf\n",p[i].n_reg,p[i].nome,p[i].endereco,p[i].salario);		
@@ -283,8 +283,8 @@ int main(int argc, char *argv[]){
             }
         }
     }
-	printf("#*************************************#\n");
-
+	printf("#***************LISTA MAIORES SALARIOS****************#\n");
+	fprintf(arch1,"TOP 10 MAIORES SALARIOS ... \n");
 	if(n < 10){
 		for(i = 0; i < n; i++){
 			printf("R$    %.2lf %s\n",p[i].salario,p[i].nome);
@@ -309,14 +309,14 @@ int main(int argc, char *argv[]){
     fprintf(arch1,"\nR$ %.2lf\n",soma);
     fprintf(arch1,"\n# FIM\n");
 
-   // perror("#ERRO2.");
+    perror("#ERRO2.");
     if(argc == 3){
     	printf("%i registros salvos em %s\n",n, argv[2]);
-    	fclose(arch);
+    	//fclose(arch);
     	fclose(arch1);
     	return 0;
     }
-   	printf("%i registros salvos em 'arch1.txt'\n",n);
+   	printf("%i Registros salvos em 'dados2.txt'\n",n);
     fclose(arch1);
     return 0;
 }
