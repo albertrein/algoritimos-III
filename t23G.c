@@ -216,14 +216,15 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 }
 
 int main(int argc, char *argv[]){
-	int n, i, j; 
+	int n = 0, i, j; 
 	struct FUNC *p;
 	struct FUNC aup;
 	double soma = 0;
 
 	FILE *arch, *arch1;
 
-	if(argc < 3){         
+	if(argc < 3){
+
 	    while (n <= 0){
 	        printf("# Quantos funcionarios voce quer cadastrar:\n");
 	        n = inteiroslidos();
@@ -232,7 +233,7 @@ int main(int argc, char *argv[]){
 	            printf("# ERRO: quantidade de funcionarios deve ser maior que 0\n");
 	        }
 	    }
-	    arch1 = fopen("arch1.txt","w");
+	    arch1 = fopen("dados2.txt","w");
 	}else{
 		arch = fopen(("%s",argv[1]),"r");
 		arch1 = fopen(("%s",argv[2]),"w");
@@ -287,13 +288,13 @@ int main(int argc, char *argv[]){
 	if(n < 10){
 		for(i = 0; i < n; i++){
 			printf("R$    %.2lf %s\n",p[i].salario,p[i].nome);
-			printf("R$    %.2lf %s\n",p[i].salario,p[i].nome);
+			fprintf(arch1,"R$    %.2lf %s\n",p[i].salario,p[i].nome);
 		}
 	
 	}else{
 		for(i = 0; i < 10; i++){
 			printf("R$    %.2lf %s\n",p[i].salario,p[i].nome);
-			printf("R$    %.2lf %s\n",p[i].salario,p[i].nome);
+			fprintf(arch1,"R$    %.2lf %s\n",p[i].salario,p[i].nome);
 		}	
 	}
 	
@@ -308,12 +309,14 @@ int main(int argc, char *argv[]){
     fprintf(arch1,"\nR$ %.2lf\n",soma);
     fprintf(arch1,"\n# FIM\n");
 
-    perror("#ERRO2.");
+   // perror("#ERRO2.");
     if(argc == 3){
+    	printf("%i registros salvos em %s\n",n, argv[2]);
     	fclose(arch);
     	fclose(arch1);
     	return 0;
     }
+   	printf("%i registros salvos em 'arch1.txt'\n",n);
     fclose(arch1);
     return 0;
 }
