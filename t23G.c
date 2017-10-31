@@ -197,17 +197,29 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 			// 	   	continue;   
 			// 	}
 			// }while(p[i].n_reg<=0);
-	    	fscanf(arch,"%i",&p[i].n_reg);
-			// do{ 
-			// 	printf("# Digite o salario, em reais:\n");
-			// 	if (fscanf(arch,"%lf",&p[i].salario)==0){
-			// 		printf("ERRO entrada invalida\n");
-			// 	 	p[i].salario=0;
-			// 	   	while(fgetc(stdin)!='\n');
-			// 	   	continue;   
-			// 	}
-			// }while(p[i].salario<=0);
-			fscanf(arch,"%lf",&p[i].salario);
+
+			do{ 
+				if (fscanf(arch,"%i",&p[i].n_reg)==0){
+					printf("ERRO entrada invalida\n");
+				 	p[i].n_reg=0;
+				   	while(fgetc(stdin)!='\n');
+				   	continue;   
+				}
+			}while(p[i].n_reg<=0);
+
+
+
+	    	//fscanf(arch,"%i",&p[i].n_reg);
+			do{ 
+				printf("# Digite o salario, em reais:\n");
+				if (fscanf(arch,"%lf",&p[i].salario)==0){
+					printf("ERRO entrada invalida\n");
+				 	p[i].salario=0;
+				   	while(fgetc(stdin)!='\n');
+				   	continue;   
+				}
+			}while(p[i].salario<=0);
+			//fscanf(arch,"%lf",&p[i].salario);
 
 	    }
 	    //perror("#ERRO1.");
@@ -268,7 +280,7 @@ int main(int argc, char *argv[]){
 	}
 
 	printf("#***************ORDEM ALFABETICA***************#\n");
-	fprintf(arch1,"OEDEM ALFABETICA ... \n");
+	fprintf(arch1,"ORDEM ALFABETICA ... \n");
 	for(i=0;i<n;i++){
 		printf("%06d %s, %s, R$ %.2lf\n",p[i].n_reg,p[i].nome,p[i].endereco,p[i].salario);
 		fprintf(arch1,"%06d %s, %s, R$ %.2lf\n",p[i].n_reg,p[i].nome,p[i].endereco,p[i].salario);		
