@@ -188,15 +188,6 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 	    	controle = conta(aux);
 	    	strnCPY(p[i].endereco,aux,(controle+1));
 
-		 //    do{ 
-			// 	printf("# Digite o registro do Funcionario:\n");
-			// 	if (fscanf(arch,"%i",&p[i].n_reg)==0){
-			// 		printf("ERRO entrada invalida\n");
-			// 	 	p[i].n_reg=0;
-			// 	   	while(fgetc(stdin)!='\n');
-			// 	   	continue;   
-			// 	}
-			// }while(p[i].n_reg<=0);
 
 			do{ 
 				if (fscanf(arch,"%i",&p[i].n_reg)==0){
@@ -207,9 +198,6 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 				}
 			}while(p[i].n_reg<=0);
 
-
-
-	    	//fscanf(arch,"%i",&p[i].n_reg);
 			do{ 
 				printf("# Digite o salario, em reais:\n");
 				if (fscanf(arch,"%lf",&p[i].salario)==0){
@@ -219,7 +207,6 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 				   	continue;   
 				}
 			}while(p[i].salario<=0);
-			//fscanf(arch,"%lf",&p[i].salario);
 
 	    }
 	    //perror("#ERRO1.");
@@ -236,7 +223,6 @@ int main(int argc, char *argv[]){
 	FILE *arch, *arch1;
 
 	if(argc < 3){
-
 	    while (n <= 0){
 	        printf("# Quantos funcionarios voce quer cadastrar:\n");
 	        n = inteiroslidos();
@@ -246,6 +232,10 @@ int main(int argc, char *argv[]){
 	        }
 	    }
 	    arch1 = fopen("dados2.txt","w");
+	    if(arch1 == NULL){
+	    	printf("#ERRO AO ABRIR O ARQUIVO.\n");
+	    	return 1;
+	    }
 	}else{
 		arch = fopen(("%s",argv[1]),"r");
 		arch1 = fopen(("%s",argv[2]),"w");
@@ -258,12 +248,12 @@ int main(int argc, char *argv[]){
 
     p = (struct FUNC*) malloc(n* sizeof(struct FUNC));
 
-    if(p == NULL){ //VERIFICAÃ‡ÃƒO DA ALOCAÇÃO
-    	printf("# ERRO. LIMITE DE ALOCAÃ‡ÃƒO DA STRUTURA FOI ALCANÃ‡ADO.\n");
+    if(p == NULL){ //VERIFICAÇÃO DA ALOCAÇÃO
+    	printf("# ERRO. LIMITE DE ALOCACAO DA STRUTURA FOI ALCANCADO.\n");
     	return 1;
     }
 
-    if(argc != 3){
+    if(argc < 3){
     	leitura_struct(p, n, MAX, STRMAX,1,arch1); 
     }else{
     	leitura_struct(p, n, MAX, STRMAX,2,arch); 
