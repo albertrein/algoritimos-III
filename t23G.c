@@ -124,8 +124,8 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 		printf("# LENDO CONTEUDO DO ARQUIVO ...\n");
 		for(i=0;i<n;i++){	//leitura
 
-			fscanf(arch,"%i",&y);
-			printf("%i\n",y);
+			fscanf(arch,"%i",&y); //pega primeira posição
+			
 	  		//printf("#Digite o nome do Funcionario %i: \n",i);
 			// lestring(p[i].nome,strmax);
 			// letraMaiuscula(p[i].nome,2);
@@ -149,7 +149,7 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 		        y++;
 			}    
 
-			printf("> %s\n",p[i].nome);
+			
 
 
 	    	// printf("#Le endereco: \n");
@@ -175,7 +175,6 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 		        y++;
 			}  
 	    	
-			printf(">> %s\n",aux);
 
 	    	j = conta(aux);
 	    	p[i].endereco = (char *)malloc((j+1) * sizeof(char));
@@ -199,7 +198,6 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 			// 	}
 			// }while(p[i].n_reg<=0);
 	    	fscanf(arch,"%i",&p[i].n_reg);
-	    	printf(">>> %i\n",p[i].n_reg);
 			// do{ 
 			// 	printf("# Digite o salario, em reais:\n");
 			// 	if (fscanf(arch,"%lf",&p[i].salario)==0){
@@ -210,10 +208,10 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 			// 	}
 			// }while(p[i].salario<=0);
 			fscanf(arch,"%lf",&p[i].salario);
-	    	printf(">>>> %lf\n",p[i].salario);
 
 	    }
 	    //perror("#ERRO1.");
+	    fclose(arch);
 	}      
 }
 
@@ -234,6 +232,7 @@ int main(int argc, char *argv[]){
 	            printf("# ERRO: quantidade de funcionarios deve ser maior que 0\n");
 	        }
 	    }
+	    arch1 = fopen("arch1.txt","w");
 	}else{
 		arch = fopen(("%s",argv[1]),"r");
 		arch1 = fopen(("%s",argv[2]),"w");
@@ -251,7 +250,12 @@ int main(int argc, char *argv[]){
     	return 1;
     }
 
-    leitura_struct(p, n, MAX, STRMAX,((argc < 3)?1:2),arch); 
+    if(argc != 3){
+    	leitura_struct(p, n, MAX, STRMAX,1,arch1); 
+    }else{
+    	leitura_struct(p, n, MAX, STRMAX,2,arch); 
+    }
+    
 
     for (i = 1; i < n; i++) {
 	   for (j=1;j<n;j++) {
@@ -305,6 +309,11 @@ int main(int argc, char *argv[]){
     fprintf(arch1,"\n# FIM\n");
 
     perror("#ERRO2.");
-    fclose(arch);
+    if(argc == 3){
+    	fclose(arch);
+    	fclose(arch1);
+    	return 0;
+    }
     fclose(arch1);
+    return 0;
 }
