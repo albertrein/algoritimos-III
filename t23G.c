@@ -210,8 +210,9 @@ int leitura_struct(struct FUNC p[], int n, int max, int strmax, int opt, FILE *a
 
 	    }
 	    //perror("#ERRO1.");
-	    fclose(arch);
-	}      
+	    fclose(arch); 
+	}
+	  
 }
 
 int main(int argc, char *argv[]){
