@@ -1,0 +1,10 @@
+ORDEM ALFABETICA ... 
+000002 FRANCIS BACOM, CAraio borracha, R$ 400.00
+000001 GUILHERME R., Av senador teotonio, R$ 1200.00
+TOP 10 MAIORES SALARIOS ... 
+R$    1200.00 GUILHERME R.
+R$    400.00 FRANCIS BACOM
+#Folha de salario total:
+R$ 1600.00
+
+# FIM
