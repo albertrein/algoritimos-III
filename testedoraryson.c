@@ -8,12 +8,13 @@ int conta(char *s){
    return i;
 }
 
+
 int tamanhoDoArquivo(char *arquivo){
 	
 	int tam, i;
 	FILE *arq;
 	
-	arq = fopen(arquivo, "rb");
+	arq = fopen(arquivo, "r");
     if (arq == NULL) {
         fprintf(stderr, "Nao pode abrir %s\n", arquivo);
         return (2);
@@ -44,7 +45,9 @@ int checaExtensao(char *arquivo){
         if (feof(arq)) {
             break;
         }
+        
         tamanho += conta(linha);
+       	 printf("\n%d",conta(linha));
     } while (!feof(arq));
     
     if(tamanho == tamanhoDoArquivo(arquivo)){
@@ -54,13 +57,51 @@ int checaExtensao(char *arquivo){
 	}
 }
 
+int escreveBinario(char *arquivo){
+	
+	FILE *arq;
+    char linha[MAXTAM];
+	int i, tamanho = 0;
+	
+	arq = fopen(arquivo, "wb");
+    if (arq == NULL) {
+        fprintf(stderr, "ERRO. Não pode abrir %s\n", arquivo);
+        return (2);
+    }else{
+    	fprintf(arq, "raryson\n\n");
+	}
+	
+	fclose(arq);
+		
+}
+
+int escreveTexto(char *arquivo){
+	
+	FILE *arq;
+    char linha[MAXTAM];
+	int i, tamanho = 0;
+	
+	arq = fopen(arquivo, "w");
+    if (arq == NULL) {
+        fprintf(stderr, "ERRO. Não pode abrir %s\n", arquivo);
+        return (2);
+    }else{
+    	fprintf(arq, "raryson\n\n");
+	}
+	
+	fclose(arq);
+		
+}
 
 int main(int argc, char *argv[])
 {
     FILE *arq;
     char linha[MAXTAM];
 	int i, tamanho = 0;
-		
+//	
+//	escreveBinario("oi");
+//	escreveTexto("oi.txt");
+			
     if (argc < 2) {
         fprintf(stderr, "ERRO. Precisa passar nome de arquivo\n");
         /* Agora enviando mensagens de erro para stderr */
