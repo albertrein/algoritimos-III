@@ -8,51 +8,159 @@ int conta(char *s){
    return i;
 }
 
-
 int quest3(char *name){
     FILE *arch1;
     arch1 = fopen(name, "r+w");
-    int i, j;
-    char letra;
-	    
-    
-	fseek(arch1, 0, SEEK_SET);
-    
-    while (!feof(arch1)) {
-   		letra = fgetc(arch1);	
-    	if(letra >= 97 && letra <= 122){
-    		
-	        letra -= 32;
-	        printf("%c", letra);
-	       
-	        fseek(arch1, -1, SEEK_CUR);
-            fprintf(arch1, letra);
-            continue;
-
-        }
-        
-        
+    if(arch1 == NULL){
+        printf("erro ao abrir\n");
     }
-   
-//    fseek(arch1, 0, SEEK_SET);
-//    letra = fgetc(arch1);
-//    while (!feof(arch1)){
-//    
-//        j = feof(arch1);
-//        printf("%d", j);
-//        if((j % 2) == 0){
-//            if(letra >= 97 && letra <= 122){
-//                letra -= 32;
-//            }
-//			fseek(arch1, -1, SEEK_CUR);
-//            /*fprintf(arch1, "%c",letra);*/    
-//        }
-//    	letra = fgetc(arch1);
+    char aux[MAXTAM];
+    int i, j, cont = 0;
+    char letra, car;
+    
+     do{
+        letra = fgetc(arch1);
+        
+        if(letra <= 'A' || letra >='z'){
+        	cont++;
+		}
+		
+		if(cont%2==0){
+			if((letra >= 97) && (letra <= 122)){
+                
+                car = (char)letra - 32;
+            
+                
+               	if(ftell(arch1) == 1){
+               		fseek(arch1, -1, SEEK_CUR);
+         			fprintf(arch1, "A");
+				}else{
+					fseek(arch1, -1, SEEK_CUR);
+        			fprintf(arch1, "A");
+				}
+				
+				printf(">>> %c \n",car);
+                printf("POS = %ld\n",ftell(arch1));
+                
+                //fprintf(arch1, letra);
+                //continue;
+
+            } 
+		}
+        
+//        if(fgets(aux, MAXTAM, arch1) != NULL){
+//        	cont++;	
+//		}
+//       
+//            if((letra >= 97) && (letra <= 122)){
+//                
+//                car = letra - 32;
+//                printf(">>> %c \n",car);
+//                printf("POS = %ld\n",ftell(arch1));
+//               
+//                
+//                //fprintf(arch1, letra);
+//                //continue;
 //
-//    }
-   	fclose(arch1);
+//            } 
+        
+          
+
+    } while(letra != EOF);
+	fclose(arch1);
+
+
+//    do{
+//        letra = (char)fgetc(arch1);
+//        if(fgets(aux, MAXTAM, arch1) != NULL){
+//        	cont++;	
+//		}
+//		
+//		
+//		 if((letra >= 97) && (letra <= 122)){
+//                
+//                car = letra - 32;
+//                printf(">>> %c \n",car);
+//                printf("POS = %ld\n",ftell(arch1));
+//               
+//                
+//                //fprintf(arch1, letra);
+//                //continue;
+//
+//            } 
+//		
+//		if(cont%2 == 0){
+//	
+//		
+//		}
+//        
+//        
+////        if((ftell(arch1) % 2) == 0){
+////            if((letra >= 97) && (letra <= 122)){
+////                
+////                car = letra - 32;
+////                printf(">>> %c \n",car);
+////                printf("POS = %ld\n",ftell(arch1));
+////               	fseek(arch1, 0, SEEK_CUR);
+////                
+////                fprintf(arch1, letra);
+////                continue;
+////
+////            } 
+////        }
+//          
+//
+//    } while(letra != EOF);
+//	fclose(arch1);
 
 }
+
+
+//int quest3(char *name){
+//    FILE *arch1;
+//    arch1 = fopen(name, "r+w");
+//    int i, j;
+//    char letra;
+//	    
+//    
+//	fseek(arch1, 0, SEEK_SET);
+//    
+//    while (!feof(arch1)) {
+//   		letra = fgetc(arch1);	
+//    	if(letra >= 97 && letra <= 122){
+//    		
+//	        letra -= 32;
+//	        
+//	       
+//	        fseek(arch1, -1, SEEK_CUR);
+//	        printf("%c", letra);
+//            fprintf(arch1, letra);
+//            continue;
+//
+//        }
+//        
+//        
+//    }
+//   
+////    fseek(arch1, 0, SEEK_SET);
+////    letra = fgetc(arch1);
+////    while (!feof(arch1)){
+////    
+////        j = feof(arch1);
+////        printf("%d", j);
+////        if((j % 2) == 0){
+////            if(letra >= 97 && letra <= 122){
+////                letra -= 32;
+////            }
+////			fseek(arch1, -1, SEEK_CUR);
+////            /*fprintf(arch1, "%c",letra);*/    
+////        }
+////    	letra = fgetc(arch1);
+////
+////    }
+//   	fclose(arch1);
+//
+//}
 
 int tamanhoDoArquivo(char *arquivo){
     
@@ -130,7 +238,7 @@ int escreveTexto(char *arquivo){
         fprintf(stderr, "ERRO. Não pode abrir %s\n", arquivo);
         return (2);
     }else{
-        fprintf(arq, "Raryson\n\n");
+        fprintf(arq, "raryson\nclaudio\npedro\n");
     }
     
     fclose(arq);
