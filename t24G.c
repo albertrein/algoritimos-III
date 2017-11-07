@@ -14,23 +14,43 @@ int quest3(char *name){
     arch1 = fopen(name, "r+w");
     int i, j;
     char letra;
-    fseek(arch1, 0, SEEK_SET);
-    while (feof(arch1));{
-        letra = letra = fgetc(arch1);
-        j = feof(arch1);
-        if((j % 2) == 0){
-            if(letra >= 97 && letra <= 122){
-                letra -= 32;
-            }
+	    
+    
+	fseek(arch1, 0, SEEK_SET);
+    
+    while (!feof(arch1)) {
+   		letra = fgetc(arch1);	
+    	if(letra >= 97 && letra <= 122){
+    		
+	        letra -= 32;
+	        printf("%c", letra);
+	       
+	        fseek(arch1, -1, SEEK_CUR);
+            fprintf(arch1, letra);
+            continue;
 
-            fprintf(arch1, "%c",letra);
-           // fseek(arch1, 1, SEEK_CUR);
-           // continue;
         }
-        fseek(arch1, 2, SEEK_CUR);
-
+        
+        
     }
-   // fclose(arch1);
+   
+//    fseek(arch1, 0, SEEK_SET);
+//    letra = fgetc(arch1);
+//    while (!feof(arch1)){
+//    
+//        j = feof(arch1);
+//        printf("%d", j);
+//        if((j % 2) == 0){
+//            if(letra >= 97 && letra <= 122){
+//                letra -= 32;
+//            }
+//			fseek(arch1, -1, SEEK_CUR);
+//            /*fprintf(arch1, "%c",letra);*/    
+//        }
+//    	letra = fgetc(arch1);
+//
+//    }
+   	fclose(arch1);
 
 }
 
@@ -72,7 +92,6 @@ int checaExtensao(char *arquivo){
         }
         
         tamanho += conta(linha);
-         printf("\n%d",conta(linha));
     } while (!feof(arq));
     
     if(tamanho == tamanhoDoArquivo(arquivo)){
@@ -111,7 +130,7 @@ int escreveTexto(char *arquivo){
         fprintf(stderr, "ERRO. Não pode abrir %s\n", arquivo);
         return (2);
     }else{
-        fprintf(arq, "raryson\n\n");
+        fprintf(arq, "Raryson\n\n");
     }
     
     fclose(arq);
@@ -125,8 +144,8 @@ int main(int argc, char *argv[])
     int i, tamanho = 0;
 //  
 //  escreveBinario("oi");
-//  escreveTexto("oi.txt");
-            
+  escreveTexto("T_oi.txt");
+          
     if (argc < 2) {
         fprintf(stderr, "ERRO. Precisa passar nome de arquivo\n");
         /* Agora enviando mensagens de erro para stderr */
@@ -139,20 +158,17 @@ int main(int argc, char *argv[])
         return (2);
     }
     
+    
     for(i = 1; i < argc; i++){
-        printf("\n\nO tamanho do %s e %d", argv[i], tamanhoDoArquivo(argv[i]));
-        tamanho = checaExtensao(argv[i]);
-        if(tamanho == 0){
-            printf("\n O %s e .txt :)", argv[i]);
-        }else{
-            printf("erro >>>>\n");
-            return (1);
-        }
-
-        if((argv[i][0] == 'T') && argv[i][1] == '_'){
-            printf("nome arquivo == T_\n");
+   		printf("\n\nO tamanho do %s e %d", argv[i], tamanhoDoArquivo(argv[i]));
+		tamanho = checaExtensao(argv[i]);
+		if(tamanho == 0){
+			printf("\n O %s e .txt :)", argv[i]);
+			if((argv[i][0] == 'T') && argv[i][1] == '_'){
+            	printf("\nnome arquivo == T_\n");
             quest3(argv[i]);
-        }   
+        	}	
+		}	       
     }
     fclose(arq);
 }
