@@ -47,7 +47,6 @@ int checaExtensao(char *arquivo){
         }
         
         tamanho += conta(linha);
-       	 printf("\n%d",conta(linha));
     } while (!feof(arq));
     
     if(tamanho == tamanhoDoArquivo(arquivo)){
